@@ -3,6 +3,39 @@ spring:
     include: oauth
   application:
     name: springboot-aws
+  # H2 Database 설정
+  datasource:
+#    url: jdbc:h2:mem:testdb
+#    url: jdbc:h2:tcp://localhost/~/testdb   # H2 DB 연결 주소 (In-Memory Mode)
+    url: jdbc:h2:tcp://localhost/~/springboot-aws    # H2 DB 연결 주소 (Embedded Mode)
+    username: sa        # H2 DB 접속 ID (사용자 지정)
+    password:        # H2 DB 접속 PW (사용자 지정)
+    driver-class-name: org.h2.Driver
   h2:
     console:
       enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        # show_sql: true
+        format_sql: true
+  session:
+    store-type: jdbc
+
+  # default page 설정 변경
+#  data:
+#    web:
+#      pageable:
+#        default-page-size: 10
+#        max-page-size: 100
+logging.level:
+  org.hibernate.SQL: debug
+
+# HTTP 요청과 응답의 인코딩을 내가 지정한 charset으로 설정한다.
+server:
+  servlet:
+    encoding:
+      force: true
